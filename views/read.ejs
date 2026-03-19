@@ -9,38 +9,28 @@
 </head>
 <body>
     <div class="w-full h-full bg-zinc-900 p-10 text-white">
-        <div class="nav">
+        <div class="nav mb-7 text-blue-400">
             <a href="/">Back To Home</a>
         </div>
         <h1 class="text-3xl tracking-tighter mb-3">All Users</h1>
         <div class="user flex gap-5 flex-wrap">
-            <div class="user max-w-72 p-4 bg-zinc-800 rounded-lg">
-                <div class="w-full h-52 bg-zinc-500 rounded-lg"></div>
-                <h3 class="text-2xl mt-3 tracking-tighter">Piyush Sureshkumar Saroj</h3>
-                <h5 class="text-zinc-400 tracking-tighter">piyushsaroj222006@gmail.com</h5>
-                <div class="flex gap-3 mt-5">
-                    <a class="text-blue-400" href="">Edit User</a>
-                    <a class="text-red-400" href="">Delete User</a>
-                </div>
-            </div>
-            <div class="user max-w-72 p-4 bg-zinc-800 rounded-lg">
-                <div class="w-full h-52 bg-zinc-500 rounded-lg"></div>
-                <h3 class="text-2xl mt-3 tracking-tighter">Piyush Sureshkumar Saroj</h3>
-                <h5 class="text-zinc-400 tracking-tighter">piyushsaroj222006@gmail.com</h5>
-                <div class="flex gap-3 mt-5">
-                    <a class="text-blue-400" href="">Edit User</a>
-                    <a class="text-red-400" href="">Delete User</a>
-                </div>
-            </div>
-            <div class="user max-w-72 p-4 bg-zinc-800 rounded-lg">
-                <div class="w-full h-52 bg-zinc-500 rounded-lg"></div>
-                <h3 class="text-2xl mt-3 tracking-tighter">Piyush Sureshkumar Saroj</h3>
-                <h5 class="text-zinc-400 tracking-tighter">piyushsaroj222006@gmail.com</h5>
-                <div class="flex gap-3 mt-5">
-                    <a class="text-blue-400" href="">Edit User</a>
-                    <a class="text-red-400" href="">Delete User</a>
-                </div>
-            </div>
+            <% if(users.length > 0){ %>
+                <% users.forEach(function(user){ %>
+                    <div class="user max-w-72 p-4 bg-zinc-800 rounded-lg">
+                        <div class="w-full h-52 bg-zinc-500 rounded-lg overflow-hidden">
+                            <img class="w-full h-52 object-cover rounded-lg" src="<%= user.image %>" />
+                        </div>
+                        <h3 class="text-2xl mt-3 tracking-tighter"><%= user.name %></h3>
+                        <h5 class="text-zinc-400 tracking-tighter"><%= user.email %></h5>
+                        <div class="flex gap-3 mt-5">
+                            <a class="text-blue-400" href="">Edit User</a>
+                            <a class="text-red-400" href="/delete/<%= user._id %>">Delete User</a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <h2 class="text-zinc-500">No user yet</h2>
+            <% } %>
         </div>
     </div>
 </body>
