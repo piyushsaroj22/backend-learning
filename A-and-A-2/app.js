@@ -17,6 +17,26 @@ app.get('/' ,function (req,res){
     res.render("index");
 })
 
+app.get("/login", function (req,res) {
+    res.render('login');
+})
+
+app.post("/login", async function (req,res){
+    let user = await userModel.findOne({email: req.body.email });
+    if(!user) return res.send("something is worng")
+    
+    bcrypt.compare(req.body.password, user.password, function (err, result){
+        if (result) {
+
+             let token = jwt.sign({email: user.email}, "hello");
+            res.cookie("token", token);
+
+            res.send("oh yeah you can login");
+        }
+        else res.send("something is worng");
+    });;
+})
+
 app.post('/create', function (req,res){
     let {username, email, password, age} = req.body;
 
@@ -38,6 +58,11 @@ app.post('/create', function (req,res){
     })
 
 });
+
+app.get('/logout', function (req, res){
+    res.cookie("token","");
+    res.redirect('/');
+})
 
 app.listen(3000);
 
